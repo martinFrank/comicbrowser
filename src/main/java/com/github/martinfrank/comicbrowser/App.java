@@ -42,7 +42,7 @@ public class App implements ExecutionFeedbackHook<WebsiteStructure>{
             LOGGER.debug("template: {}", template);
             threadPoolExecutor.execute(new WebsiteStructureExtractor(template, this));
             LOGGER.debug("execute...");
-        } catch (JAXBException | IOException e) {
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
     }
