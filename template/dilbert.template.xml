@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <start url="https://dilbert.com/strip/2019-07-15"/>
+    <next_page xpath="nextPageXpath" kind="date"/>
+    <image xpath=""/>
+    <abort_criteria>
+        <failure amount="20" date="today"/>
+    </abort_criteria>
+</template>

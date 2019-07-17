@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <title>Harpy Gee</title>
+    <cover url="http://www.harpygee.com/comic/cover"/>
+    <start url="http://www.harpygee.com/comic/page-1"/>
+    <next_page xpath="//*[@id=&quot;leftarea&quot;]/nav/a[4]" kind="xpath"/>
+    <image xpath="//*[@id=&quot;cc-comic&quot;]"/><!--//*[@id="cc-comic"]-->
+    <abort_criteria>
+        <failure amount="2" next_not_found="true"/>
+    </abort_criteria>
+</template>
