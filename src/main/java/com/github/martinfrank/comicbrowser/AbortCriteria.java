@@ -6,20 +6,49 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class AbortCriteria {
 
+    @SuppressWarnings("unused")
     @XmlElement
-    public Failure failure;
+    private Failure failure;
+
+    private int count = 0;
+    private boolean isNextPageNotFoundCriteriaMet = false;
+    private int errorCount = 0;
+
+    boolean hasAnyAbortCriteriaMet() {
+        if(isNextPageNotFoundCriteriaMet) {
+            return true;
+        }
+        if(errorCount > failure.amount){
+            return true;
+        }
+
+        count = count + 1;
+        if(count >= 3){
+            return true;
+        }
+        return false;
+    }
+
+    void checkNextPage(String nextPageUrl) {
+        if (nextPageUrl == null ||nextPageUrl.length()==0 ){
+            if(failure.next_not_found){
+                isNextPageNotFoundCriteriaMet = true;
+            }
+            errorCount = errorCount + 1;
+        }
+    }
 
     @XmlRootElement(name="failure")
     public static class Failure {
 
         @XmlAttribute(name="amount")
-        public int amount;
+        int amount;
 
         @XmlAttribute(name="date")
-        public String date;
+        String date;
 
         @XmlAttribute(name="next_not_found")
-        public boolean next_not_found;
+        boolean next_not_found;
 
         @Override
         public String toString() {

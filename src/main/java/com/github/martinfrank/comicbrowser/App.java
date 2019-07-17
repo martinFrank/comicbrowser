@@ -50,7 +50,7 @@ public class App implements ExecutionFeedbackHook<WebsiteStructure>{
     @Override
     public void notifyFinished(WebsiteStructure structure) {
         LOGGER.debug("done with strucutre {}", structure);
-        executionLog.print(LOGGER);
+        executionLog.debug(LOGGER);
         LOGGER.debug("success!?={}",executionLog.hasSucceeded());
         threadPoolExecutor.shutdown();
     }

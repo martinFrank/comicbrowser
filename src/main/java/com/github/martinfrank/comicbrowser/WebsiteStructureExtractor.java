@@ -23,7 +23,7 @@ public class WebsiteStructureExtractor implements Runnable {
     private final WebsiteStructure structure;
     private final ExecutionFeedbackHook<WebsiteStructure> hook;
 
-    public WebsiteStructureExtractor(WebsiteStructureTemplate template, ExecutionFeedbackHook<WebsiteStructure> hook){
+    WebsiteStructureExtractor(WebsiteStructureTemplate template, ExecutionFeedbackHook<WebsiteStructure> hook){
         this.template = template;
         this.hook = hook;
         structure = new WebsiteStructure();
@@ -31,17 +31,19 @@ public class WebsiteStructureExtractor implements Runnable {
 
 
     public void run () {
-        LOGGER.debug("start (call)");
+        LOGGER.debug("run");
         String start = template.getStartUrl();
         try {
             Document document = Jsoup.connect(start).get();
-            boolean readSuccess = readImage(document);
-            if(readSuccess){
-                String nextPageUrl = readNextPageUrl(document);
-            }
-
-
-
+            hook.getExecutionLog().message("successfully read start document");
+            do {
+                boolean readSuccess = readImage(document);
+                if (readSuccess) {
+                    String nextPageUrl = readNextPageUrl(document);
+                    template.getAbortCriteria().checkNextPage(nextPageUrl);
+                    document = Jsoup.connect( nextPageUrl).get();
+                }
+            }while (!template.getAbortCriteria().hasAnyAbortCriteriaMet());
         } catch (IOException e) {
             e.printStackTrace();
             hook.getExecutionLog().failed("IOException e", e);
@@ -62,10 +64,16 @@ public class WebsiteStructureExtractor implements Runnable {
                 LOGGER.debug("empty");
             }
         }
+        if (template.isNextPageRetrievedByDate()){
+            String nextPageUrl = template.getNextPageDate();
+            LOGGER.debug("nextPageUrl {}", nextPageUrl);
+            return nextPageUrl;
+        }
         return null;
     }
 
     private boolean readImage(Document document) {
+        LOGGER.debug("read image from xpath {}", template.getImageXPath());
         Elements imageElement = Xsoup.compile(template.getImageXPath()).evaluate(document).getElements();
         if (!imageElement.toString().isEmpty()) {
             int width = getInt(imageElement.attr(ATTRIBUTE_WIDTH));

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
-    <start url="https://dilbert.com/strip/2019-07-15"/>
-    <next_page xpath="nextPageXpath" kind="date"/>
-    <image xpath=""/>
+    <title>Dilbert</title>
+    <start url="https://dilbert.com/strip/" year="1989" month="04" day="16" format="yyyy-MM-dd"/>
+    <next_page kind="date"/>
+    <!--<image xpath="/html/body/div[2]/div[4]/div[2]/div/section/div[2]/a/img"/>-->
+    <image xpath="//*[@class=&quot;meta-info-container&quot;]/section/div[2]/a/img"/>
     <abort_criteria>
         <failure amount="20" date="today"/>
     </abort_criteria>

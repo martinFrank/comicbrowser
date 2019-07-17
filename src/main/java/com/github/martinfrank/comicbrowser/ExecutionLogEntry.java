@@ -2,7 +2,7 @@ package com.github.martinfrank.comicbrowser;
 
 class ExecutionLogEntry {
 
-    private boolean hasFailed = false;
+    private boolean hasFailed;
     private String message;
     private Object reason;
 

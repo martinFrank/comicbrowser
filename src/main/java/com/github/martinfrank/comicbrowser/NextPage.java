@@ -25,9 +25,11 @@ public class NextPage {
 
     }
 
+    @SuppressWarnings("unused")
     @XmlAttribute(name = "kind")
     private String kind;
 
+    @SuppressWarnings("unused")
     @XmlAttribute(name = "xpath")
     private String xpath;
 
@@ -40,11 +42,11 @@ public class NextPage {
                 '}';
     }
 
-    public Kind getKind() {
+    Kind getKind() {
         return Kind.byName(kind);
     }
 
-    public String getXPath() {
+    String getXPath() {
         return xpath;
     }
 }

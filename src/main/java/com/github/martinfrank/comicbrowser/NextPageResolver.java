@@ -1,5 +1,6 @@
 package com.github.martinfrank.comicbrowser;
 
+@SuppressWarnings("unused")
 public class NextPageResolver {
 
     public enum Kind {XPATH, DATE}
