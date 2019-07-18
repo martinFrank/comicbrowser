@@ -7,8 +7,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 @XmlRootElement(name="template")
 public class WebsiteStructureTemplate {
@@ -16,32 +14,18 @@ public class WebsiteStructureTemplate {
     static WebsiteStructureTemplate fromXmlFile(File inputXmlFile) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(WebsiteStructureTemplate.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        return (WebsiteStructureTemplate) unmarshaller.unmarshal(inputXmlFile);
+        WebsiteStructureTemplate template = (WebsiteStructureTemplate) unmarshaller.unmarshal(inputXmlFile);
+        template.init();
+        return template;
+    }
+
+    private void init() {
+        nextPageResolver = new NextPageResolver(nextPage, start);
+        imageRetriever = new ImageRetriever(image);
     }
 
     String getStartUrl() {
-        if(isNextPageRetrievedByDate()){
-            return start.url+getDateFormatted();
-        }
-        if(isNextPageRetrievedByXPath()){
-            return start.url;
-        }
-        return "";
-    }
-
-    private String getDateFormatted() {
-        if(currentDate == null){
-            initCurrentDate();
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(start.format);
-        return dateFormat.format(currentDate.getTime());
-    }
-
-    private void initCurrentDate() {
-        currentDate = Calendar.getInstance();
-        currentDate.set(Calendar.YEAR, start.year);
-        currentDate.set(Calendar.MONTH, start.month);
-        currentDate.set(Calendar.DAY_OF_MONTH, start.month);
+        return nextPageResolver.getStartUrl();
     }
 
     @SuppressWarnings("unused")
@@ -68,55 +52,45 @@ public class WebsiteStructureTemplate {
     @XmlElement(name = "title")
     private String title;
 
-    private Calendar currentDate;
 
-    String getImageXPath() {
-        return image.xpath;
-    }
-
-    boolean isNextPageRetrievedByXPath() {
-        return nextPage.getKind() == NextPage.Kind.XPATH;
-    }
-
-    boolean isNextPageRetrievedByDate() {
-        return nextPage.getKind() == NextPage.Kind.DATE;
-    }
-
-    String getNextPageXPath() {
-        return nextPage.getXPath();
-    }
+    private NextPageResolver nextPageResolver;
+    private ImageRetriever imageRetriever;
 
     AbortCriteria getAbortCriteria() {
         return abortCriteria;
     }
 
-    String getNextPageDate() {
-        currentDate.add(Calendar.DATE, 1);
-        return start.url+getDateFormatted();
+
+    NextPageResolver getNextPageResolver() {
+        return nextPageResolver;
+    }
+
+    ImageRetriever getImageRetriever() {
+        return imageRetriever;
     }
 
 
     @XmlRootElement(name="start")
-    private static class Start {
+    static class Start {
         @SuppressWarnings("unused")
         @XmlAttribute(name="url")
-        private String url;
+        String url;
 
         @SuppressWarnings("unused")
         @XmlAttribute(name="year")
-        private int year;
+        int year;
 
         @SuppressWarnings("unused")
         @XmlAttribute(name="month")
-        private int month;
+        int month;
 
         @SuppressWarnings("unused")
         @XmlAttribute(name="day")
-        private int day;
+        int day;
 
         @SuppressWarnings("unused")
         @XmlAttribute(name="format")
-        private String format;
+        String format;
 
         @Override
         public String toString() {
@@ -142,11 +116,11 @@ public class WebsiteStructureTemplate {
     }
 
     @XmlRootElement(name="image")
-    private static class Image {
+    static class Image {
 
         @SuppressWarnings("unused")
         @XmlAttribute(name="xpath")
-        private String xpath;
+        String xpath;
 
         @Override
         public String toString() {
