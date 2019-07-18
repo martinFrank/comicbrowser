@@ -1,6 +1,7 @@
 package com.github.martinfrank.comicbrowser;
 
 import com.github.martinfrank.comicbrowser.execution.ExecutionFeedbackHook;
+import com.github.martinfrank.comicbrowser.structure.ImageInfo;
 import com.github.martinfrank.comicbrowser.xml.AbortCriteria;
 import com.github.martinfrank.comicbrowser.xml.WebsiteStructure;
 import com.github.martinfrank.comicbrowser.xml.WebsiteStructureTemplate;
@@ -31,13 +32,15 @@ public class WebsiteStructureExtractor implements Runnable {
         ImageRetriever imageRetriever = template.getImageRetriever();
         NextPageResolver nextPageResolver = template.getNextPageResolver();
         AbortCriteria abortCriteria = template.getAbortCriteria();
+        structure.setTitle(template.getTitle());
         String start = nextPageResolver.getStartUrl();
         try {
             Document document = Jsoup.connect(start).get();
             hook.getExecutionLog().message("successfully read start document");
             do {
-                boolean readSuccess = imageRetriever.readImage(document);
-                if (readSuccess) {
+                ImageInfo imageInfo = imageRetriever.readImage(document);
+                if (imageInfo != null) {
+                    structure.addImageInfo(imageInfo, nextPageResolver.getPageInfo());
                     String nextPageUrl = nextPageResolver.readNextPageUrl(document);
                     abortCriteria.checkNextPage(nextPageUrl);
                     document = Jsoup.connect( nextPageUrl).get();
@@ -50,6 +53,7 @@ public class WebsiteStructureExtractor implements Runnable {
         }
         hook.getExecutionLog().message("all worked properly");
         hook.notifyFinished(structure);
+
     }
 
 

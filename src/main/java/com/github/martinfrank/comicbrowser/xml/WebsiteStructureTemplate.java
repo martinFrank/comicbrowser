@@ -68,36 +68,10 @@ public class WebsiteStructureTemplate {
         return imageRetriever;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
-//    @XmlRootElement(name="start")
-//    static class Start {
-//        @SuppressWarnings("unused")
-//        @XmlAttribute(name="url")
-//        String url;
-//
-//        @SuppressWarnings("unused")
-//        @XmlAttribute(name="year")
-//        int year;
-//
-//        @SuppressWarnings("unused")
-//        @XmlAttribute(name="month")
-//        int month;
-//
-//        @SuppressWarnings("unused")
-//        @XmlAttribute(name="day")
-//        int day;
-//
-//        @SuppressWarnings("unused")
-//        @XmlAttribute(name="format")
-//        String format;
-//
-//        @Override
-//        public String toString() {
-//            return "Start{" +
-//                    "url='" + url + '\'' +
-//                    '}';
-//        }
-//    }
 
     @XmlRootElement(name="cover")
     private static class Cover {
@@ -114,20 +88,6 @@ public class WebsiteStructureTemplate {
         }
     }
 
-//    @XmlRootElement(name="image")
-//    static class Image {
-//
-//        @SuppressWarnings("unused")
-//        @XmlAttribute(name="xpath")
-//        String xpath;
-//
-//        @Override
-//        public String toString() {
-//            return "Image{" +
-//                    "xpath='" + xpath + '\'' +
-//                    '}';
-//        }
-//    }
 
     @Override
     public String toString() {

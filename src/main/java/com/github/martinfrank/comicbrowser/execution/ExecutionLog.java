@@ -2,7 +2,6 @@ package com.github.martinfrank.comicbrowser.execution;
 
 import org.slf4j.Logger;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +9,8 @@ public class ExecutionLog {
 
     private List<ExecutionLogEntry> executionLogEntries = new ArrayList<>();
 
-    public void failed(String errorMessage, IOException e) {
-        executionLogEntries.add(ExecutionLogEntry.errorLogEntry(errorMessage, e));
+    public void failed(String errorMessage, Object reason) {
+        executionLogEntries.add(ExecutionLogEntry.errorLogEntry(errorMessage, reason));
     }
 
     public void message(String msg) {

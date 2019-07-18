@@ -1,7 +1,7 @@
 package com.github.martinfrank.comicbrowser;
 
+import com.github.martinfrank.comicbrowser.structure.ImageInfo;
 import com.github.martinfrank.comicbrowser.xml.Image;
-import com.github.martinfrank.comicbrowser.xml.WebsiteStructureTemplate;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ public class ImageRetriever {
         this.image = image;
     }
 
-    public boolean readImage(Document document) {
+    public ImageInfo readImage(Document document) {
         LOGGER.debug("read image from xpath {}", getImageXPath());
         Elements imageElement = Xsoup.compile(getImageXPath()).evaluate(document).getElements();
         if (!imageElement.toString().isEmpty()) {
@@ -31,11 +31,11 @@ public class ImageRetriever {
             int height = getInt(imageElement.attr(ATTRIBUTE_HEIGHT));
             String src = HTTP_PREFIX + imageElement.attr(ATTRIBUTE_SRC);
             LOGGER.debug("w/h: {}/{} src={}", width, height, src);
-            return true;
+            return new ImageInfo(width, height, src);
         } else {
             LOGGER.debug("empty");
         }
-        return false;
+        return null;
     }
 
     private int getInt(String src) {

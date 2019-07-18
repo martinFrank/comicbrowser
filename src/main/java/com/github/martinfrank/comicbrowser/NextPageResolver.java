@@ -1,5 +1,8 @@
 package com.github.martinfrank.comicbrowser;
 
+import com.github.martinfrank.comicbrowser.structure.DatePageInfo;
+import com.github.martinfrank.comicbrowser.structure.IndexPageInfo;
+import com.github.martinfrank.comicbrowser.structure.PageInfo;
 import com.github.martinfrank.comicbrowser.xml.NextPage;
 import com.github.martinfrank.comicbrowser.xml.Start;
 import org.jsoup.nodes.Document;
@@ -21,6 +24,7 @@ public class NextPageResolver {
     private final Start start;
 
     private Calendar currentDate;
+    private int pageCount;
 
     public NextPageResolver(NextPage nextPage, Start start) {
         this.nextPage = nextPage;
@@ -45,6 +49,7 @@ public class NextPageResolver {
             if (!nextPageElement.toString().isEmpty()) {
                 String nextPageUrl = nextPageElement.attr(ATTRIBUTE_HREF);
                 LOGGER.debug("nextPageUrl {}", nextPageUrl);
+                pageCount = pageCount + 1;
                 return nextPageUrl;
             } else {
                 LOGGER.debug("empty");
@@ -88,5 +93,15 @@ public class NextPageResolver {
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat(start.format);
         return dateFormat.format(currentDate.getTime());
+    }
+
+    public PageInfo getPageInfo() {
+        if (isNextPageRetrievedByXPath()) {
+            return new IndexPageInfo(pageCount);
+        }
+        if (isNextPageRetrievedByDate()) {
+            return new DatePageInfo(getDateFormatted());
+        }
+        return null;
     }
 }

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -58,7 +59,16 @@ public class App implements ExecutionFeedbackHook<WebsiteStructure> {
         LOGGER.debug("done with strucutre {}", structure);
         executionLog.debug(LOGGER);
         LOGGER.debug("success!?={}",executionLog.hasSucceeded());
+        if (executionLog.hasSucceeded()) {
+            try {
+                structure.writeToFile();
+            } catch (JAXBException | IOException e) {
+                executionLog.failed("could not write structure file! ", e);
+
+            }
+        }
         threadPoolExecutor.shutdown();
+
     }
 
     @Override
