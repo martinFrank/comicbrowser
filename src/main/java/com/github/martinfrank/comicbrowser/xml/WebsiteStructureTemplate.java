@@ -27,10 +27,6 @@ public class WebsiteStructureTemplate {
         imageRetriever = new ImageRetriever(image);
     }
 
-    public String getStartUrl() {
-        return nextPageResolver.getStartUrl();
-    }
-
     @SuppressWarnings("unused")
     @XmlElement
     private Start start;

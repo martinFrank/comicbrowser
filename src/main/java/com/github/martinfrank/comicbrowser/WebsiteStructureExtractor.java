@@ -1,6 +1,7 @@
 package com.github.martinfrank.comicbrowser;
 
 import com.github.martinfrank.comicbrowser.execution.ExecutionFeedbackHook;
+import com.github.martinfrank.comicbrowser.xml.AbortCriteria;
 import com.github.martinfrank.comicbrowser.xml.WebsiteStructure;
 import com.github.martinfrank.comicbrowser.xml.WebsiteStructureTemplate;
 import org.jsoup.Jsoup;
@@ -27,18 +28,21 @@ public class WebsiteStructureExtractor implements Runnable {
 
     public void run () {
         LOGGER.debug("run");
-        String start = template.getStartUrl();
+        ImageRetriever imageRetriever = template.getImageRetriever();
+        NextPageResolver nextPageResolver = template.getNextPageResolver();
+        AbortCriteria abortCriteria = template.getAbortCriteria();
+        String start = nextPageResolver.getStartUrl();
         try {
             Document document = Jsoup.connect(start).get();
             hook.getExecutionLog().message("successfully read start document");
             do {
-                boolean readSuccess = template.getImageRetriever().readImage(document);
+                boolean readSuccess = imageRetriever.readImage(document);
                 if (readSuccess) {
-                    String nextPageUrl = template.getNextPageResolver().readNextPageUrl(document);
-                    template.getAbortCriteria().checkNextPage(nextPageUrl);
+                    String nextPageUrl = nextPageResolver.readNextPageUrl(document);
+                    abortCriteria.checkNextPage(nextPageUrl);
                     document = Jsoup.connect( nextPageUrl).get();
                 }
-            }while (!template.getAbortCriteria().hasAnyAbortCriteriaMet());
+            }while (!abortCriteria.hasAnyAbortCriteriaMet());
         } catch (IOException e) {
             e.printStackTrace();
             hook.getExecutionLog().failed("IOException e", e);
