@@ -1,4 +1,4 @@
-package com.github.martinfrank.comicbrowser;
+package com.github.martinfrank.comicbrowser.xml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,7 +14,7 @@ public class AbortCriteria {
     private boolean isNextPageNotFoundCriteriaMet = false;
     private int errorCount = 0;
 
-    boolean hasAnyAbortCriteriaMet() {
+    public boolean hasAnyAbortCriteriaMet() {
         if(isNextPageNotFoundCriteriaMet) {
             return true;
         }
@@ -29,7 +29,7 @@ public class AbortCriteria {
         return false;
     }
 
-    void checkNextPage(String nextPageUrl) {
+    public void checkNextPage(String nextPageUrl) {
         if (nextPageUrl == null ||nextPageUrl.length()==0 ){
             if(failure.next_not_found){
                 isNextPageNotFoundCriteriaMet = true;

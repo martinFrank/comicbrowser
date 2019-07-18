@@ -1,5 +1,9 @@
 package com.github.martinfrank.comicbrowser;
 
+import com.github.martinfrank.comicbrowser.execution.ExecutionFeedbackHook;
+import com.github.martinfrank.comicbrowser.execution.ExecutionLog;
+import com.github.martinfrank.comicbrowser.xml.WebsiteStructure;
+import com.github.martinfrank.comicbrowser.xml.WebsiteStructureTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class App implements ExecutionFeedbackHook<WebsiteStructure>{
+public class App implements ExecutionFeedbackHook<WebsiteStructure> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 

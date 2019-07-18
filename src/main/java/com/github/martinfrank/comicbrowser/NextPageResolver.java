@@ -1,5 +1,7 @@
 package com.github.martinfrank.comicbrowser;
 
+import com.github.martinfrank.comicbrowser.xml.NextPage;
+import com.github.martinfrank.comicbrowser.xml.Start;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
@@ -16,17 +18,17 @@ public class NextPageResolver {
     private static final String ATTRIBUTE_HREF = "href";
 
     private final NextPage nextPage;
-    private final WebsiteStructureTemplate.Start start;
+    private final Start start;
 
     private Calendar currentDate;
 
-    public NextPageResolver(NextPage nextPage, WebsiteStructureTemplate.Start start) {
+    public NextPageResolver(NextPage nextPage, Start start) {
         this.nextPage = nextPage;
         this.start = start;
         initCurrentDate();
     }
 
-    String getStartUrl() {
+    public String getStartUrl() {
         if(isNextPageRetrievedByDate()){
             return start.url+getDateFormatted();
         }
@@ -37,7 +39,7 @@ public class NextPageResolver {
     }
 
 
-    public String readNextPageUrl(Document document) {
+    String readNextPageUrl(Document document) {
         if(isNextPageRetrievedByXPath() ){
             Elements nextPageElement = Xsoup.compile(getNextPageXPath()).evaluate(document).getElements();
             if (!nextPageElement.toString().isEmpty()) {

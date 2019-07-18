@@ -1,5 +1,7 @@
 package com.github.martinfrank.comicbrowser;
 
+import com.github.martinfrank.comicbrowser.xml.Image;
+import com.github.martinfrank.comicbrowser.xml.WebsiteStructureTemplate;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
@@ -15,9 +17,9 @@ public class ImageRetriever {
     private static final String ATTRIBUTE_SRC = "src";
     private static final String HTTP_PREFIX = "http:";
 
-    private final WebsiteStructureTemplate.Image image;
+    private final Image image;
 
-    public ImageRetriever(WebsiteStructureTemplate.Image image){
+    public ImageRetriever(Image image){
         this.image = image;
     }
 
@@ -45,6 +47,6 @@ public class ImageRetriever {
     }
 
     String getImageXPath() {
-        return image.xpath;
+        return image.getXpath();
     }
 }

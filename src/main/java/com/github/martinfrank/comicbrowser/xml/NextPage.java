@@ -1,4 +1,4 @@
-package com.github.martinfrank.comicbrowser;
+package com.github.martinfrank.comicbrowser.xml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
@@ -42,11 +42,11 @@ public class NextPage {
                 '}';
     }
 
-    Kind getKind() {
+    public Kind getKind() {
         return Kind.byName(kind);
     }
 
-    String getXPath() {
+    public String getXPath() {
         return xpath;
     }
 }

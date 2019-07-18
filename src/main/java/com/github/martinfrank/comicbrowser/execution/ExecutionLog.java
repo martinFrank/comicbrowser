@@ -1,4 +1,4 @@
-package com.github.martinfrank.comicbrowser;
+package com.github.martinfrank.comicbrowser.execution;
 
 import org.slf4j.Logger;
 
@@ -6,15 +6,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class ExecutionLog {
+public class ExecutionLog {
 
     private List<ExecutionLogEntry> executionLogEntries = new ArrayList<>();
 
-    void failed(String errorMessage, IOException e) {
+    public void failed(String errorMessage, IOException e) {
         executionLogEntries.add(ExecutionLogEntry.errorLogEntry(errorMessage, e));
     }
 
-    void message(String msg) {
+    public void message(String msg) {
         executionLogEntries.add(ExecutionLogEntry.messageLogEntry(msg));
     }
 
@@ -23,13 +23,13 @@ class ExecutionLog {
     }
 
 
-    void debug(Logger logger) {
+    public void debug(Logger logger) {
         for(ExecutionLogEntry entry: executionLogEntries){
             logger.debug("entry{} ",entry);
         }
     }
 
-    boolean hasSucceeded() {
+    public boolean hasSucceeded() {
         return ! hasFailed();
     }
 }

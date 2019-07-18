@@ -1,5 +1,8 @@
 package com.github.martinfrank.comicbrowser;
 
+import com.github.martinfrank.comicbrowser.execution.ExecutionFeedbackHook;
+import com.github.martinfrank.comicbrowser.xml.WebsiteStructure;
+import com.github.martinfrank.comicbrowser.xml.WebsiteStructureTemplate;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;

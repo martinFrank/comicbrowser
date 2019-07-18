@@ -1,4 +1,4 @@
-package com.github.martinfrank.comicbrowser;
+package com.github.martinfrank.comicbrowser.execution;
 
 public interface ExecutionFeedbackHook<T> {
 

@@ -1,4 +1,4 @@
-package com.github.martinfrank.comicbrowser;
+package com.github.martinfrank.comicbrowser.xml;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

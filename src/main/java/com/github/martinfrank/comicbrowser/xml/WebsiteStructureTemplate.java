@@ -1,4 +1,7 @@
-package com.github.martinfrank.comicbrowser;
+package com.github.martinfrank.comicbrowser.xml;
+
+import com.github.martinfrank.comicbrowser.ImageRetriever;
+import com.github.martinfrank.comicbrowser.NextPageResolver;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -11,7 +14,7 @@ import java.io.File;
 @XmlRootElement(name="template")
 public class WebsiteStructureTemplate {
 
-    static WebsiteStructureTemplate fromXmlFile(File inputXmlFile) throws JAXBException {
+    public static WebsiteStructureTemplate fromXmlFile(File inputXmlFile) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(WebsiteStructureTemplate.class);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
         WebsiteStructureTemplate template = (WebsiteStructureTemplate) unmarshaller.unmarshal(inputXmlFile);
@@ -24,7 +27,7 @@ public class WebsiteStructureTemplate {
         imageRetriever = new ImageRetriever(image);
     }
 
-    String getStartUrl() {
+    public String getStartUrl() {
         return nextPageResolver.getStartUrl();
     }
 
@@ -56,49 +59,49 @@ public class WebsiteStructureTemplate {
     private NextPageResolver nextPageResolver;
     private ImageRetriever imageRetriever;
 
-    AbortCriteria getAbortCriteria() {
+    public AbortCriteria getAbortCriteria() {
         return abortCriteria;
     }
 
 
-    NextPageResolver getNextPageResolver() {
+    public NextPageResolver getNextPageResolver() {
         return nextPageResolver;
     }
 
-    ImageRetriever getImageRetriever() {
+    public ImageRetriever getImageRetriever() {
         return imageRetriever;
     }
 
 
-    @XmlRootElement(name="start")
-    static class Start {
-        @SuppressWarnings("unused")
-        @XmlAttribute(name="url")
-        String url;
-
-        @SuppressWarnings("unused")
-        @XmlAttribute(name="year")
-        int year;
-
-        @SuppressWarnings("unused")
-        @XmlAttribute(name="month")
-        int month;
-
-        @SuppressWarnings("unused")
-        @XmlAttribute(name="day")
-        int day;
-
-        @SuppressWarnings("unused")
-        @XmlAttribute(name="format")
-        String format;
-
-        @Override
-        public String toString() {
-            return "Start{" +
-                    "url='" + url + '\'' +
-                    '}';
-        }
-    }
+//    @XmlRootElement(name="start")
+//    static class Start {
+//        @SuppressWarnings("unused")
+//        @XmlAttribute(name="url")
+//        String url;
+//
+//        @SuppressWarnings("unused")
+//        @XmlAttribute(name="year")
+//        int year;
+//
+//        @SuppressWarnings("unused")
+//        @XmlAttribute(name="month")
+//        int month;
+//
+//        @SuppressWarnings("unused")
+//        @XmlAttribute(name="day")
+//        int day;
+//
+//        @SuppressWarnings("unused")
+//        @XmlAttribute(name="format")
+//        String format;
+//
+//        @Override
+//        public String toString() {
+//            return "Start{" +
+//                    "url='" + url + '\'' +
+//                    '}';
+//        }
+//    }
 
     @XmlRootElement(name="cover")
     private static class Cover {
@@ -115,20 +118,20 @@ public class WebsiteStructureTemplate {
         }
     }
 
-    @XmlRootElement(name="image")
-    static class Image {
-
-        @SuppressWarnings("unused")
-        @XmlAttribute(name="xpath")
-        String xpath;
-
-        @Override
-        public String toString() {
-            return "Image{" +
-                    "xpath='" + xpath + '\'' +
-                    '}';
-        }
-    }
+//    @XmlRootElement(name="image")
+//    static class Image {
+//
+//        @SuppressWarnings("unused")
+//        @XmlAttribute(name="xpath")
+//        String xpath;
+//
+//        @Override
+//        public String toString() {
+//            return "Image{" +
+//                    "xpath='" + xpath + '\'' +
+//                    '}';
+//        }
+//    }
 
     @Override
     public String toString() {
