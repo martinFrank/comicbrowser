@@ -1,6 +1,6 @@
 package com.github.martinfrank.comicbrowser.structure;
 
-public class DatePageInfo extends PageInfo {
+public class DatePageInfo implements PageInfo {
 
     private final String date;
     public DatePageInfo(String dateFormatted) {

@@ -1,6 +1,6 @@
 package com.github.martinfrank.comicbrowser.structure;
 
-public class IndexPageInfo extends PageInfo {
+public class IndexPageInfo implements PageInfo {
 
     private final int count;
     public IndexPageInfo(int pageCount) {
