@@ -1,6 +1,6 @@
 package com.github.martinfrank.comicbrowser.structure;
 
-public abstract class PageInfo {
+public interface PageInfo {
 
-    public abstract String getDetails();
+    String getDetails();
 }

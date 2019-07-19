@@ -6,14 +6,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class AbortCriteria {
 
-    @SuppressWarnings("unused")
     @XmlElement
     private Failure failure = new Failure();
 
     @XmlElement
     private Success success = new Success();
 
-    private int count = 0;
     private boolean isNextPageNotFoundCriteriaMet = false;
     private int errorCount = 0;
     private int successCount = 0;
@@ -31,15 +29,12 @@ public class AbortCriteria {
             return true;
         }
 
-        if (successCount >= success.amount) {
-            return true;
-        }
-        return false;
+        return successCount >= success.amount;
     }
 
     public void checkNextPage(String nextPageUrl) {
         if (nextPageUrl == null ||nextPageUrl.length()==0 ){
-            if(failure.next_not_found){
+            if (failure.nextNotFound) {
                 isNextPageNotFoundCriteriaMet = true;
             }
             errorCount = errorCount + 1;
@@ -57,14 +52,14 @@ public class AbortCriteria {
         String date;
 
         @XmlAttribute(name="next_not_found")
-        boolean next_not_found;
+        boolean nextNotFound;
 
         @Override
         public String toString() {
             return "Failure{" +
                     "amount=" + amount +
                     ", value='" + date + '\'' +
-                    ", next_not_found=" + next_not_found +
+                    ", next_not_found=" + nextNotFound +
                     '}';
         }
     }
