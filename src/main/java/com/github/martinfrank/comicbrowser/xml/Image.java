@@ -8,7 +8,7 @@ public class Image {
 
     @SuppressWarnings("unused")
     @XmlAttribute(name="xpath")
-    private String xpath;
+    private String xpath = "";
 
     @Override
     public String toString() {

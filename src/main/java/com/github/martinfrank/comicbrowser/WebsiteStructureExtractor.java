@@ -40,9 +40,11 @@ public class WebsiteStructureExtractor implements Runnable {
             do {
                 ImageInfo imageInfo = imageRetriever.readImage(document);
                 if (imageInfo != null) {
-                    structure.addImageInfo(imageInfo, nextPageResolver.getPageInfo());
+                    structure.addPage(imageInfo, nextPageResolver.getPageInfo());
                     String nextPageUrl = nextPageResolver.readNextPageUrl(document);
+                    hook.getExecutionLog().message("next page would be " + nextPageUrl);
                     abortCriteria.checkNextPage(nextPageUrl);
+                    abortCriteria.increaseSucceedCount();
                     document = Jsoup.connect( nextPageUrl).get();
                 }
             }while (!abortCriteria.hasAnyAbortCriteriaMet());

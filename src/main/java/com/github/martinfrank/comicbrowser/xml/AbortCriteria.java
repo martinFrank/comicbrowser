@@ -8,11 +8,20 @@ public class AbortCriteria {
 
     @SuppressWarnings("unused")
     @XmlElement
-    private Failure failure;
+    private Failure failure = new Failure();
+
+    @XmlElement
+    private Success success = new Success();
 
     private int count = 0;
     private boolean isNextPageNotFoundCriteriaMet = false;
     private int errorCount = 0;
+    private int successCount = 0;
+
+
+    public void increaseSucceedCount() {
+        successCount = successCount + 1;
+    }
 
     public boolean hasAnyAbortCriteriaMet() {
         if(isNextPageNotFoundCriteriaMet) {
@@ -22,8 +31,7 @@ public class AbortCriteria {
             return true;
         }
 
-        count = count + 1;
-        if(count >= 3){
+        if (successCount >= success.amount) {
             return true;
         }
         return false;
@@ -37,6 +45,7 @@ public class AbortCriteria {
             errorCount = errorCount + 1;
         }
     }
+
 
     @XmlRootElement(name="failure")
     public static class Failure {
@@ -58,6 +67,13 @@ public class AbortCriteria {
                     ", next_not_found=" + next_not_found +
                     '}';
         }
+    }
+
+    @XmlRootElement(name = "success")
+    public static class Success {
+
+        @XmlAttribute(name = "amount")
+        int amount;
     }
 
     @Override

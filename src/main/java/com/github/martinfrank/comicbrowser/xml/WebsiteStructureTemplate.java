@@ -29,27 +29,27 @@ public class WebsiteStructureTemplate {
 
     @SuppressWarnings("unused")
     @XmlElement
-    private Start start;
+    private Start start = new Start();
 
     @SuppressWarnings("unused")
     @XmlElement
-    private Cover cover;
+    private Cover cover = new Cover();
 
     @SuppressWarnings("unused")
     @XmlElement
-    private Image image;
+    private Image image = new Image();
 
     @SuppressWarnings("unused")
     @XmlElement (name="next_page")
-    private NextPage nextPage;
+    private NextPage nextPage = new NextPage();
 
     @SuppressWarnings("unused")
     @XmlElement (name = "abort_criteria")
-    private AbortCriteria abortCriteria;
+    private AbortCriteria abortCriteria = new AbortCriteria();
 
     @SuppressWarnings("unused")
     @XmlElement(name = "title")
-    private String title;
+    private String title = "";
 
 
     private NextPageResolver nextPageResolver;
@@ -78,7 +78,7 @@ public class WebsiteStructureTemplate {
 
         @SuppressWarnings("unused")
         @XmlAttribute(name="url")
-        private String url;
+        private String url = "";
 
         @Override
         public String toString() {

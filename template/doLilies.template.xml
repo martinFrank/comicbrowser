@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <title>Daughter of the Lilies</title>
+    <cover url="http://www.daughterofthelilies.com/dotl/part-1-a-girl-with-no-face"/>
+    <start url="http://www.daughterofthelilies.com/dotl/content-warning"/>
+    <next_page xpath="//*[@id=&quot;navbottom&quot;]/nav/a[4]" kind="xpath"/>
+    <image xpath="//*[@id=&quot;cc-comic&quot;]"/><!--//*[@id="cc-comic"]-->
+    <abort_criteria>
+        <failure amount="2" next_not_found="true"/>
+        <success amount="3"/>
+    </abort_criteria>
+</template>

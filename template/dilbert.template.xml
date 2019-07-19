@@ -6,5 +6,6 @@
     <image xpath="//*[@class=&quot;meta-info-container&quot;]/section/div[2]/a/img"/>
     <abort_criteria>
         <failure amount="20" date="today"/>
+        <success amount="3"/>
     </abort_criteria>
 </template>

@@ -10,12 +10,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlRootElement(name="structure")
 public class WebsiteStructure {
@@ -23,7 +24,11 @@ public class WebsiteStructure {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebsiteStructure.class);
 
     @XmlElement(name="title")
-    private Title title;
+    private Title title = new Title();
+
+    @XmlElementWrapper(name = "pages")
+    @XmlElement(name = "page")
+    private List<Page> pages = new ArrayList<>();
 
     public WebsiteStructure() {
         title = new Title();
@@ -42,11 +47,12 @@ public class WebsiteStructure {
 
     private String generateOutputFileName() {
         String[] fragments = title.value.split("\\s");
-        String filename = Arrays.stream(fragments).collect(Collectors.joining("_"));
+        String filename = String.join("_", fragments);
         return "output/" + filename + ".xml";
     }
 
-    public void addImageInfo(ImageInfo imageInfo, PageInfo info) {
+    public void addPage(ImageInfo image, PageInfo info) {
+        pages.add(new Page(image, info));
     }
 
     public void setTitle(String title) {
@@ -59,7 +65,7 @@ public class WebsiteStructure {
 
         @SuppressWarnings("unused")
         @XmlAttribute(name="value")
-        private String value;
+        private String value = "";
 
     }
 }

@@ -27,11 +27,11 @@ public class NextPage {
 
     @SuppressWarnings("unused")
     @XmlAttribute(name = "kind")
-    private String kind;
+    private String kind = "";
 
     @SuppressWarnings("unused")
     @XmlAttribute(name = "xpath")
-    private String xpath;
+    private String xpath = "";
 
 
     @Override

@@ -12,15 +12,15 @@ public class ImageInfo {
         this.height = height;
     }
 
-    String getSrc() {
+    public String getSrc() {
         return src;
     }
 
-    int getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    int getHeight() {
+    public int getHeight() {
         return height;
     }
 
@@ -32,4 +32,5 @@ public class ImageInfo {
                 ", height=" + height +
                 '}';
     }
+
 }

@@ -63,8 +63,8 @@ public class App implements ExecutionFeedbackHook<WebsiteStructure> {
             try {
                 structure.writeToFile();
             } catch (JAXBException | IOException e) {
+                e.printStackTrace();
                 executionLog.failed("could not write structure file! ", e);
-
             }
         }
         threadPoolExecutor.shutdown();
