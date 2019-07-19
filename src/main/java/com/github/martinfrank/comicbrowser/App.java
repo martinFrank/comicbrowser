@@ -33,9 +33,9 @@ public class App implements ExecutionFeedbackHook<WebsiteStructure> {
 
 
     public static void main(String[] args) {
-        if (args.length == 1) {
-            LOGGER.debug(args[0]);
+        if (args != null && args.length == 1) {
             File f = new File(args[0]);
+            LOGGER.debug("application argument:{}", f);
             if (f.exists()) {
                 new App().doIt(f);
 

@@ -49,7 +49,7 @@ public class WebsiteStructureExtractor implements Runnable {
                 }
             }while (!abortCriteria.hasAnyAbortCriteriaMet());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.debug("error during execution: {}", e);
             hook.getExecutionLog().failed("IOException e", e);
             hook.notifyFinished(structure);
         }
