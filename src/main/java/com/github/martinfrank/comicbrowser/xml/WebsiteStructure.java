@@ -72,4 +72,10 @@ public class WebsiteStructure {
     public String getTitle() {
         return title.value;
     }
+
+    public List<Page> getPages() {
+        return pages;
+    }
+
+
 }

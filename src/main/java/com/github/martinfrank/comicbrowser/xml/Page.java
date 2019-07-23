@@ -32,5 +32,38 @@ public class Page {
         detail = pageInfo.getDetails();
     }
 
+//    public String getUrl() {
+//        return url;
+//    }
+//
+//    public int getWidth() {
+//        return width;
+//    }
+//
+//    public int getHeight() {
+//        return height;
+//    }
+//
+//    public String getDetail() {
+//        return detail;
+//    }
 
+    @Override
+    public String toString() {
+//        return "Page{" +
+//                "url='" + url + '\'' +
+//                ", detail='" + detail + '\'' +
+//                ", width=" + width +
+//                ", height=" + height +
+//                '}';
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }

@@ -29,13 +29,20 @@ public class ImageRetriever {
         if (!imageElement.toString().isEmpty()) {
             int width = getInt(imageElement.attr(ATTRIBUTE_WIDTH));
             int height = getInt(imageElement.attr(ATTRIBUTE_HEIGHT));
-            String src = HTTP_PREFIX + imageElement.attr(ATTRIBUTE_SRC);
+            String src = imageElement.attr(ATTRIBUTE_SRC);
+            if (isHttpSuffixMissing(src)) {
+                src = HTTP_PREFIX + src;
+            }
             LOGGER.debug("w/h: {}/{} src={}", width, height, src);
             return new ImageInfo(width, height, src);
         } else {
             LOGGER.debug("empty");
         }
         return null;
+    }
+
+    private boolean isHttpSuffixMissing(String src) {
+        return !src.toLowerCase().startsWith(HTTP_PREFIX);
     }
 
     private int getInt(String src) {
