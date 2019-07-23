@@ -23,7 +23,7 @@ public class WebsiteStructure {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebsiteStructure.class);
 
-    @XmlElement(name="title")
+    //    @XmlElement(name="title")
     private Title title = new Title();
 
     @XmlElementWrapper(name = "pages")
@@ -59,13 +59,17 @@ public class WebsiteStructure {
         this.title.value = title;
     }
 
-
     @XmlRootElement(name="title")
+//    @XmlRootElement()
     private static class Title{
 
         @SuppressWarnings("unused")
         @XmlAttribute(name="value")
         private String value = "";
 
+    }
+
+    public String getTitle() {
+        return title.value;
     }
 }
