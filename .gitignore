@@ -10,6 +10,9 @@ target/
 # BlueJ files
 *.ctxt
 
+#output dir
+output/
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

@@ -45,6 +45,9 @@ public class WebsiteStructureExtractor implements Runnable {
                     hook.getExecutionLog().message("next page would be " + nextPageUrl);
                     abortCriteria.checkNextPage(nextPageUrl);
                     abortCriteria.increaseSucceedCount();
+                    if (nextPageUrl == null) {
+                        break;
+                    }
                     document = Jsoup.connect( nextPageUrl).get();
                 }
             }while (!abortCriteria.hasAnyAbortCriteriaMet());

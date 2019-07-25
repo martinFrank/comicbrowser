@@ -7,6 +7,6 @@
     <image xpath="//*[@id=&quot;cc-comic&quot;]"/><!--//*[@id="cc-comic"]-->
     <abort_criteria>
         <failure amount="2" next_not_found="true"/>
-        <success amount="3"/>
+        <success amount="1000"/>
     </abort_criteria>
 </template>
