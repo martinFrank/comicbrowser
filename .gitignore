@@ -16,6 +16,12 @@ output/
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+#target
+/target
+
+#intellij dir
+.idea/
+
 # Package Files #
 *.jar
 *.war
